@@ -30,7 +30,7 @@ imageUrl : ""   //图片icon地址
 $.Confirm({
 	text : "我是很多字",
 	callback : function () {
-	alert("我是回调函数");
+		alert("我是回调函数");
 	}
 })
 ```

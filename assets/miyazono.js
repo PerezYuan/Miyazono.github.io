@@ -1,5 +1,5 @@
 /**
- * 猪标局确认提示框
+ * miyazono.js 简单的弹出窗插件
  * @author yuanzimin
  * @time 2015-11-23
  */
@@ -292,7 +292,9 @@
                 color : "#b94a48"
             })
         },
-
+        /**
+         * @method 删除html
+         */
         removeHtml : function () {
             var obj = $('.alert-tips');
             var _height = parseInt(obj.height());
