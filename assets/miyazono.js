@@ -230,7 +230,7 @@
         },
 
         resizePos : function () {
-            var obj = $('.alert-tips');
+            var obj = $('.miya-tips');
             var _width = parseInt(obj.width());
             var _height = parseInt(obj.height());
             obj.css("marginLeft", -_width/2)
@@ -246,10 +246,10 @@
 
             switch (me.config.type) {
                 case 'success' :
-                    _html = '<div class="alert-tips alert-tips-success"><i></i><span>' + me.config.text + '</span></div>';
+                    _html = '<div class="miya-tips miya-tips-success"><i></i><span>' + me.config.text + '</span></div>';
                     break;
                 case 'error' :
-                    _html = '<div class="alert-tips alert-tips-error"><i></i><span>' + me.config.text + '</span></div>';
+                    _html = '<div class="miya-tips miya-tips-error"><i></i><span>' + me.config.text + '</span></div>';
                     break;
                 default : break;
             }
@@ -265,7 +265,7 @@
         generateCss : function () {
             var me = this;
             //弹出确认窗外部盒子样式
-            var $tips = $(".alert-tips");
+            var $tips = $(".miya-tips");
             $tips.css({
                 position : 'fixed',
                 top : '50%',
@@ -291,14 +291,14 @@
                 verticalAlign : "middle"
             })
 
-            var $success = $(".alert-tips-success");
+            var $success = $(".miya-tips-success");
             $success.css({
                 border : "1px solid #00ba45",
                 backgroundColor : "#c9ffda",
                 color : "#00802f"
             })
 
-            var $error = $(".alert-tips-error");
+            var $error = $(".miya-tips-error");
             $error.css({
                 border : "1px solid #f6b9b9",
                 backgroundColor : "#ffe4e4",
@@ -309,7 +309,7 @@
          * @method 删除html
          */
         removeHtml : function () {
-            var obj = $('.alert-tips');
+            var obj = $('.miya-tips');
             var _height = parseInt(obj.height());
             obj.animate({marginTop : -_height/2 - 30},function(){setTimeout(function(){obj.remove()},1500)});
         }
