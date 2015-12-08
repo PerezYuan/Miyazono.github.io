@@ -20,7 +20,7 @@
             btnCancelBgColor : "#828282", //取消按钮背景色
             btnCancelColor : "#fff", //取消按钮文字颜色
             btnCancelText : "取消", //取消按钮文字
-            isFade : "true",
+            isFade : "true",  //是否淡入淡出效果
  			callback : new function() {}
  		}
  		this.init(options);
@@ -302,6 +302,7 @@
         }
     }
 
+    //扩展到jquery
     jQuery.extend({
         Confirm : function (options) {
             var confirmDialog = new ConfirmDialog(options);
