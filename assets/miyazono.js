@@ -202,8 +202,8 @@
     var TipsDialog = function (option){
         this.config = {
             type : 'success',    //成功：success;错误：error;
-            text : '请输入相关提示信息',
-            imageUrl : ""
+            text : '请输入相关提示信息',  //提示文字
+            imageUrl : ""   //图片icon地址
         }
         this.init(option);
     }
