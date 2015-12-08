@@ -178,7 +178,7 @@
 	     *	callback 回调函数
 	     */
     	btnOkClick : function (callback, isFade) {
-			var $obj = $("#miya-box");
+			var $obj = $("#miya-wrap");
             isFade ? $obj.fadeOut(500,function(){$obj.remove();}) : $obj.remove();
     		if (Object.prototype.toString.call(callback) == '[object Function]') {
     			callback();
@@ -189,7 +189,7 @@
 	     * @method 取消按钮事件
 	     */
     	btnCancelClick : function (isFade) {
-    		var $obj = $("#miya-box");
+    		var $obj = $("#miya-wrap");
     		isFade ? $obj.fadeOut(500,function(){$obj.remove();}) : $obj.remove();
     	},
 
