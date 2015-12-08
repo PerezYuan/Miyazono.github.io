@@ -10,12 +10,13 @@
 提示窗主要分为成功提示窗和错误提示窗两类
 
 ###初始化一个错误提示窗
+```javascript
     $.Tips({
 		text : "我是很多字",
 		type : "error",
 		imageUrl : "../assets/error.png"
 	})
-
+```
 ###提示窗参数详解以及缺省值
 	type : 'success',    //成功：success;错误：error;
     text : '请输入相关提示信息',  //提示文字
