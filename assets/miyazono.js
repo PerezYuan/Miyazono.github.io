@@ -8,13 +8,13 @@
  	var ConfirmDialog = function (options) {
  		this.config = {
  			title : "提示", //标题文字
-            titleBgColor : "#6fb3e0", //标题颜色
+            titleBgColor : "#258e3d", //标题颜色
             titleColor : "#fff", //标题文字颜色
             boxBgColor : "#fff", //盒子背景颜色
  			text : "我是确认弹出窗",  //主题文字
             textColor : "#000",  //主题文字颜色
-            borderStyle : "1px solid #d8d8d8", //主题边框样式
-            btnOkBgColor : "#6fb3e0",  //确定按钮背景色
+            borderStyle : "1px solid #009934", //主题边框样式
+            btnOkBgColor : "#258e3d",  //确定按钮背景色
             btnOkColor : "#fff",  //确定按钮文字颜色
             btnOkText : "确认",  //确定按钮文字
             btnCancelBgColor : "#828282", //取消按钮背景色
