@@ -35,34 +35,47 @@
     	init : function (options) {
     		var me = this;
     		me.config = $.extend(me.config,options || {});
-    		me.GenerateHtml();
+    		me.generateHtml();
     		me.bind(me.config.callback);
     	},
 
     	/**
 	     * @method 生成html
 	     */
-    	GenerateHtml : function () {
+    	generateHtml : function () {
             var me = this;
     		var _html = "";
 
-    		_html += '<div id="miya-box"><p id="miya-tit">' + me.config.title + '</p>';
+    		_html += '<div id="miya-wrap"><div id="miya-box"><p id="miya-tit">' + me.config.title + '</p>';
     		_html += '<a id="miya-close">×</a><div id="miya-text">' + me.config.text + '</div><div id="miya-btns">';
 
     		_html += '<a id="miya-btns-ok" href="javascript:void(0);">' + me.config.btnOkText + '</a>';
     		_html += '<a id="miya-btns-cancel" href="javascript:void(0);">' + me.config.btnCancelText + '</a>';
-    		_html += '</div></div>';
+    		_html += '</div></div></div>';
 
 	        //必须先将_html添加到body，再设置css样式
 	        $("body").append(_html); 
-	        this.GenerateCss();
+	        me.generateCss();
 	    },
 
 	    /**
 	     * @method 生成css样式
 	     */
-    	GenerateCss : function () {
+    	generateCss : function () {
             var me = this;
+            //弹出确认窗背景样式
+            var $wrap = $("#miya-wrap");
+            $wrap.css({
+                position : 'fixed',
+                width : '100%',
+                height : '100%',
+                top : '0',
+                left : '0',
+                backgroundColor : 'rgba(255,255,255,0)',
+                zIndex : '999999'
+            })
+
+
     		//弹出确认窗外部盒子样式
     		var $box = $("#miya-box");
     		$box.css({
@@ -73,7 +86,6 @@
     			backgroundColor : me.config.boxBgColor,
     			border : me.config.borderStyle,
                 display : 'none',
-    			zIndex : '999999'
     		})
 
     		//弹出确认框标题样式
@@ -165,8 +177,9 @@
 	     * @pram 
 	     *	callback 回调函数
 	     */
-    	btnOkClick : function (callback) {
-			$("#miya-box").remove();
+    	btnOkClick : function (callback, isFade) {
+			var $obj = $("#miya-box");
+            isFade ? $obj.fadeOut(500,function(){$obj.remove();}) : $obj.remove();
     		if (Object.prototype.toString.call(callback) == '[object Function]') {
     			callback();
     		}
@@ -193,7 +206,7 @@
                 me.btnCancelClick(me.config.isFade);
             });
 			$("#miya-btns-ok").on('click', function () {
-    			me.btnOkClick(callback);
+    			me.btnOkClick(callback,me.config.isFade);
     		});
     	}
 	}
@@ -213,7 +226,7 @@
         init : function (option) {
             var me = this;
             me.config = $.extend(this.config,option || {});
-            me.GenerateHtml();
+            me.generateHtml();
         },
 
         resizePos : function () {
@@ -227,7 +240,7 @@
         /**
          * @method 生成html
          */
-        GenerateHtml : function (){
+        generateHtml : function (){
             var me = this;
             var _html = '';
 
@@ -241,7 +254,7 @@
                 default : break;
             }
             $("body").append(_html); 
-            me.GenerateCss();
+            me.generateCss();
             me.resizePos();
             me.removeHtml();
         },
@@ -249,7 +262,7 @@
         /**
          * @method 生成css样式
          */
-        GenerateCss : function () {
+        generateCss : function () {
             var me = this;
             //弹出确认窗外部盒子样式
             var $tips = $(".alert-tips");
