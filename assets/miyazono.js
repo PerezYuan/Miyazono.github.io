@@ -13,12 +13,20 @@
             boxBgColor : "#fff", //盒子背景颜色
  			text : "我是确认弹出窗",  //主题文字
             textColor : "#000",  //主题文字颜色
+            borderStyle : "1px solid #d8d8d8", //主题边框样式
+            btnOkBgColor : "#6fb3e0",  //确定按钮背景色
+            btnOkColor : "#fff",  //确定按钮文字颜色
+            btnOkText : "确认",  //确定按钮文字
+            btnCancelBgColor : "#828282", //取消按钮背景色
+            btnCancelColor : "#fff", //取消按钮文字颜色
+            btnCancelText : "取消", //取消按钮文字
+            isFade : "true",
  			callback : new function() {}
  		}
  		this.init(options);
  	}
 
-    //confirm类相关函数 
+    //confirmDialog类相关函数 
     ConfirmDialog.prototype = {
     	/**
 	     * @method 初始化提示框
@@ -33,19 +41,16 @@
 
     	/**
 	     * @method 生成html
-	     * @pram 
-	     *	title 提示上方文字
-	     *	text  提示正文
 	     */
-    	GenerateHtml : function (title, text) {
+    	GenerateHtml : function () {
             var me = this;
     		var _html = "";
 
     		_html += '<div id="miya-box"><p id="miya-tit">' + me.config.title + '</p>';
     		_html += '<a id="miya-close">×</a><div id="miya-text">' + me.config.text + '</div><div id="miya-btns">';
 
-    		_html += '<a id="miya-btns-ok" href="javascript:void(0);">确认</a>';
-    		_html += '<a id="miya-btns-cancel" href="javascript:void(0);">取消</a>';
+    		_html += '<a id="miya-btns-ok" href="javascript:void(0);">' + me.config.btnOkText + '</a>';
+    		_html += '<a id="miya-btns-cancel" href="javascript:void(0);">' + me.config.btnCancelText + '</a>';
     		_html += '</div></div>';
 
 	        //必须先将_html添加到body，再设置css样式
@@ -66,7 +71,8 @@
     			top : '50%',
     			left : '50%',
     			backgroundColor : me.config.boxBgColor,
-    			border : '1px solid #d8d8d8',
+    			border : me.config.borderStyle,
+                display : 'none',
     			zIndex : '999999'
     		})
 
@@ -117,12 +123,15 @@
     			display : 'inline-block',
     			width : '80px',
     			padding : '8px',
-    			color : '#fff',
+    			color : me.config.btnOkColor,
     			fontSize : '14px',
-    			backgroundColor : '#6fb3e0',
+    			backgroundColor : me.config.btnOkBgColor,
     			textDecoration : 'none',
     			fontFamily : '"microsoft yahei", "Arial", "Helvetica", sans-serif',
-    			cursor : 'pointer'
+    			cursor : 'pointer',
+                textOverflow : 'ellipsis',
+                overflow : 'hidden',
+                whiteSpace : 'nowrap'
     		})
 
     		var $btnCancel = $("#miya-btns-cancel");
@@ -130,13 +139,16 @@
     			display : 'inline-block',
     			width : '80px',
     			padding : '8px',
-    			color : '#fff',
+    			color : me.config.btnCancelColor,
     			fontSize : '14px',
-    			backgroundColor : '#828282',
+    			backgroundColor : me.config.btnCancelBgColor,
     			cursor : 'pointer',
     			textDecoration : 'none',
     			fontFamily : '"microsoft yahei", "Arial", "Helvetica", sans-serif',
-    			marginLeft : '20px'
+    			marginLeft : '20px',
+                textOverflow : 'ellipsis',
+                overflow : 'hidden',
+                whiteSpace : 'nowrap'
     		})
 
     		//文本框居中，必须在每一个css设置之后获取长宽
@@ -144,6 +156,8 @@
             var _height = parseInt($box.height());
 	        $box.css("marginLeft", -_width/2);
             $box.css("marginTop", -_height/2);
+            //文本框淡入
+            me.config.isFade ? $box.fadeIn(500) : $box.show();
     	},
 
 		/**
@@ -161,9 +175,9 @@
     	/**
 	     * @method 取消按钮事件
 	     */
-    	btnCancelClick : function () {
+    	btnCancelClick : function (isFade) {
     		var $obj = $("#miya-box");
-    		$obj.fadeOut(500,function(){$obj.remove();});
+    		isFade ? $obj.fadeOut(500,function(){$obj.remove();}) : $obj.remove();
     	},
 
 		/**
@@ -172,17 +186,126 @@
 	     */
     	bind : function (callback) {
     		var me = this;
-    		$("#miya-close").on('click', me.btnCancelClick);
-			$("#miya-btns-cancel").on('click', me.btnCancelClick);
+    		$("#miya-close").on('click', function () {
+                me.btnCancelClick(me.config.isFade);
+            });
+			$("#miya-btns-cancel").on('click', function () {
+                me.btnCancelClick(me.config.isFade);
+            });
 			$("#miya-btns-ok").on('click', function () {
     			me.btnOkClick(callback);
     		});
     	}
 	}
 
+    //tips类
+    var TipsDialog = function (option){
+        this.config = {
+            type : 'success',    //成功：success;错误：error;
+            text : '请输入相关提示信息',
+            imageUrl : ""
+        }
+        this.init(option);
+    }
+
+    //tips类相关函数
+    TipsDialog.prototype = {
+        init : function (option) {
+            var me = this;
+            me.config = $.extend(this.config,option || {});
+            me.GenerateHtml();
+        },
+
+        resizePos : function () {
+            var obj = $('.alert-tips');
+            var _width = parseInt(obj.width());
+            var _height = parseInt(obj.height());
+            obj.css("marginLeft", -_width/2)
+            obj.css("marginTop", -_height/2 + 30)
+        },
+
+        /**
+         * @method 生成html
+         */
+        GenerateHtml : function (){
+            var me = this;
+            var _html = '';
+
+            switch (me.config.type) {
+                case 'success' :
+                    _html = '<div class="alert-tips alert-tips-success"><i></i><span>' + me.config.text + '</span></div>';
+                    break;
+                case 'error' :
+                    _html = '<div class="alert-tips alert-tips-error"><i></i><span>' + me.config.text + '</span></div>';
+                    break;
+                default : break;
+            }
+            $("body").append(_html); 
+            me.GenerateCss();
+            me.resizePos();
+            me.removeHtml();
+        },
+
+        /**
+         * @method 生成css样式
+         */
+        GenerateCss : function () {
+            var me = this;
+            //弹出确认窗外部盒子样式
+            var $tips = $(".alert-tips");
+            $tips.css({
+                position : 'fixed',
+                top : '50%',
+                left : '50%',
+                borderRadius : '3px',
+                padding : '10px',
+                fontFamily : '"microsoft yahei", "Arial", "Helvetica", sans-serif',
+                fontSize : "14px",
+                zIndex : '999999'
+            })
+
+            $tips.find('i').css({
+                display : "inline-block",
+                width : "17px",
+                height : "17px",
+                verticalAlign : "middle",
+                marginRight : "10px",
+                backgroundImage : "url(" + me.config.imageUrl + ")",
+                backgroundSize : "100%"
+            })
+
+            $tips.find('span').css({
+                verticalAlign : "middle"
+            })
+
+            var $success = $(".alert-tips-success");
+            $success.css({
+                border : "1px solid #00ba45",
+                backgroundColor : "#c9ffda",
+                color : "#00802f"
+            })
+
+            var $error = $(".alert-tips-error");
+            $error.css({
+                border : "1px solid #f6b9b9",
+                backgroundColor : "#ffe4e4",
+                color : "#b94a48"
+            })
+        },
+
+        removeHtml : function () {
+            var obj = $('.alert-tips');
+            var _height = parseInt(obj.height());
+            obj.animate({marginTop : -_height/2 - 30},function(){setTimeout(function(){obj.remove()},1500)});
+        }
+    }
+
     jQuery.extend({
         Confirm : function (options) {
-            var confirmDialog = new ConfirmDialog(options)
+            var confirmDialog = new ConfirmDialog(options);
+        },
+        Tips : function (options) {
+            var tipsDialog = new TipsDialog(options);
         }
     });
     
