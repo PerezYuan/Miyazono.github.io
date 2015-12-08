@@ -19,8 +19,8 @@ $.Tips({
 ```
 ###提示窗参数详解以及缺省值
 ```javascript
-type : 'success',    //成功：success;错误：error;
-text : '请输入相关提示信息',  //提示文字
+type : "success",    //成功：success;错误：error;
+text : "请输入相关提示信息",  //提示文字
 imageUrl : ""   //图片icon地址
 ```
 ##确认框（Confirm）
