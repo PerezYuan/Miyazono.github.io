@@ -21,6 +21,7 @@ $.Tips({
 ```javascript
 type : "success",    //成功：success;错误：error;
 text : "请输入相关提示信息",  //提示文字
+timeout : 1500,  //提示文字消失延时
 imageUrl : ""   //图片icon地址
 ```
 ##确认框（Confirm）
