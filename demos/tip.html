@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="360-site-verification" content="77e88fa96898c4e0de55c512d98cf44d">
+    <title>tip demo</title>
+
+    <script src="../assets/jquery171.js"></script>
+    <script src="../assets/tip.js"></script>
+</head>
+<body>
+    <button id="tip">提示框</button>
+</body>
+<script type="text/javascript">
+    $('#tip').click(function() {
+        $.tip({
+            text : '我是很多字',
+            imageUrl : '../assets/success.png'
+        })
+    });
+</script>
+</html>
