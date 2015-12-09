@@ -216,6 +216,7 @@
         this.config = {
             type : "success",    //成功：success;错误：error;
             text : "请输入相关提示信息",  //提示文字
+            timeout : 1500,  //时间延时
             imageUrl : ""   //图片icon地址
         }
         this.init(option);
@@ -233,8 +234,8 @@
             var obj = $('.miya-tips');
             var _width = parseInt(obj.width());
             var _height = parseInt(obj.height());
-            obj.css("marginLeft", -_width/2)
-            obj.css("marginTop", -_height/2 + 30)
+            obj.css("marginLeft", -_width/2);
+            obj.css("marginTop", -_height/2 + 30);
         },
 
         /**
@@ -309,9 +310,10 @@
          * @method 删除html
          */
         removeHtml : function () {
+            var me = this;
             var obj = $('.miya-tips');
             var _height = parseInt(obj.height());
-            obj.animate({marginTop : -_height/2 - 30},function(){setTimeout(function(){obj.remove()},1500)});
+            obj.animate({marginTop : -_height/2 - 30},function(){setTimeout(function(){obj.remove()},me.config.timeout)});
         }
     }
 
