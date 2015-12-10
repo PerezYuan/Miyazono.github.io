@@ -1,16 +1,8 @@
 (function () {
     function generateHtml (options) {
-        var html = '';
-        switch (options.type) {
-            case 'success' :
-                html = '<div class="miya-tips miya-tips-success"><i></i><span>' + options.text + '</span></div>';
-                break;
-            case 'error' :
-                html = '<div class="miya-tips miya-tips-error"><i></i><span>' + options.text + '</span></div>';
-                break;
-            default : break;
-        }
-        return $(html);
+        var _html = '';
+        _html = '<div class="miya-tips miya-tips-' + options.type + '"><i></i><span>' + options.text + '</span></div>';
+        return $(_html);
     }
 
     function applyCss ($el, options) {
