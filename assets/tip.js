@@ -84,7 +84,7 @@
     }
 
     jQuery.extend({
-        tip : function (options) {
+        Tip : function (options) {
             tip(options);
         }
     });
