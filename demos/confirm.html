@@ -18,10 +18,14 @@
 <script type="text/javascript">
     $('#confirm').click(function() {
         $.Confirm({
-            callback : function () {
-                alert("1");
+            text : 'lorem lorem lorem lorem',
+            onOk : function () {
+                alert('确定时回调函数');
+            },
+            onCancel: function () {
+                alert('取消时回调函数');
             }
-        })
+        });
     });
 </script>
 </html>
