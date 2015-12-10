@@ -116,27 +116,26 @@
         options.isFade ? $box.fadeIn(500) : $box.show();
     }
 
-    function btnOkClick ($el, callback, isFade) {
-        isFade ? $el.fadeOut(500,function(){$el.remove();}) : $el.remove();
-        if (Object.prototype.toString.call(callback) == '[object Function]') {
-            callback();
+    function generateClickHandler ($el, onClick, isFade) {
+        function callbackWrapper () {
+            $el.remove();
+            if (Object.prototype.toString.call(onClick) === '[object Function]') {
+                onClick();
+            }
         }
-    }
 
-    function btnCancelClick ($el, isFade) {
-        isFade ? $el.fadeOut(500,function(){$el.remove();}) : $el.remove();
+        return function () {
+            if (isFade) {
+                $el.fadeOut(500, callbackWrapper);
+            } else {
+                callbackWrapper();
+            }
+        };
     }
 
     function bind ($el, options) {
-        $el.find("#miya-close").on('click', function () {
-            btnCancelClick($el, options.isFade);
-        });
-        $el.find("#miya-btns-cancel").on('click', function () {
-            btnCancelClick($el, options.isFade);
-        });
-        $el.find("#miya-btns-ok").on('click', function () {
-            btnOkClick($el, options.callback, options.isFade);
-        });
+        $el.find("#miya-btns-ok").on('click', generateClickHandler($el, options.onOk, options.isFade));
+        $el.find("#miya-close,#miya-btns-cancel").on('click', generateClickHandler($el, options.onCancel, options.isFade));
     }
 
     function confirmDialog (customOptions) {
@@ -155,18 +154,20 @@
             btnCancelColor : "#fff", //取消按钮文字颜色
             btnCancelText : "取消", //取消按钮文字
             isFade : "true",  //是否淡入淡出效果
-            callback : new function() {}
+            onOk : null, //点击确定时执行
+            onCancel: null, //点击取消时执行
         };
 
         $.extend(options, customOptions);
 
         var $el = generateHtml(options);
 
+        bind($el, options);
+
         applyCss($el, options);
 
         animate($el, options);
 
-        bind($el, options);
     }
 
     jQuery.extend({
