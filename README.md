@@ -4,7 +4,8 @@
 ##引入jQuery与插件代码
 
 	<script src="../assets/jquery171.js"></script>
-    <script src="../assets/miyazono.js"></script>
+    <script src="../assets/tip.js"></script>
+	<script src="../assets/confirm.js"></script>
 
 ##提示框（Tips）
 提示窗主要分为成功提示窗和错误提示窗两类
