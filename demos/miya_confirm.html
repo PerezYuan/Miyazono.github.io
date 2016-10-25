@@ -6,7 +6,6 @@
     <meta name="renderer" content="webkit">
     <meta name="keywords" content="">
     <meta name="description" content="">
-    <meta name="360-site-verification" content="77e88fa96898c4e0de55c512d98cf44d">
     <title>确认弹出窗提示demo</title>
 
     <script src="../assets/jquery171.js"></script>
@@ -16,13 +15,18 @@
 	<button id="confirm">确认弹出</button>
 </body>
 <script type="text/javascript">
-	$("#confirm").click(function() {
-			$.Confirm({
-				text : "我是很多字",
-				callback : function () {
-					alert("我是回调函数");
-				}
-			})
-		})	
+    $("#confirm").click(function() {
+        $.Confirm({
+            title : '我是题目',
+            text : "我是文字",
+            btnOkText : '确认按钮',
+            btnCancelText : '取消按钮',
+            callback : function () {
+                setTimeout(function(){
+                    alert("我是回调函数")
+                },1000)
+            }
+        })
+    })	
 </script>
 </html>
