@@ -264,7 +264,10 @@
                     _html = '<div id="miyaTips" class="miya-tips miya-tips-error"><i></i><span>' + 
                     me.config.text + '</span></div>';
                     break;
-                default : break;
+                default : 
+                    console.warn('no this type for miyazono~!');
+                    return false;
+                    break;
             }
             var $el = me.$el = $(_html);
             if($('#miyaTips').length > 0) {
