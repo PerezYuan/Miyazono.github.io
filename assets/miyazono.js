@@ -241,11 +241,11 @@
         },
 
         resizePos : function () {
-            var obj = $('.miya-tips');
-            var _width = parseInt(obj.width());
-            var _height = parseInt(obj.height());
-            obj.css("marginLeft", -_width/2);
-            obj.css("marginTop", -_height/2 + 30);
+            var me = this;
+            var _width = parseInt(me.$el.width());
+            var _height = parseInt(me.$el.height());
+            me.$el.css("marginLeft", -_width/2);
+            me.$el.css("marginTop", -_height/2 + 30);
         },
 
         /**
@@ -257,14 +257,19 @@
 
             switch (me.config.type) {
                 case 'success' :
-                    _html = '<div class="miya-tips miya-tips-success"><i></i><span>' + me.config.text + '</span></div>';
+                    _html = '<div id="miyaTips" class="miya-tips miya-tips-success"><i></i><span>' + 
+                    me.config.text + '</span></div>';
                     break;
                 case 'error' :
-                    _html = '<div class="miya-tips miya-tips-error"><i></i><span>' + me.config.text + '</span></div>';
+                    _html = '<div id="miyaTips" class="miya-tips miya-tips-error"><i></i><span>' + 
+                    me.config.text + '</span></div>';
                     break;
                 default : break;
             }
-            $("body").append(_html); 
+            var $el = me.$el = $(_html);
+            if($('#miyaTips').length > 0) {
+                return;
+            }
             me.generateCss();
             me.resizePos();
             me.removeHtml();
@@ -276,8 +281,7 @@
         generateCss : function () {
             var me = this;
             //弹出确认窗外部盒子样式
-            var $tips = $(".miya-tips");
-            $tips.css({
+            me.$el.css({
                 position : 'fixed',
                 top : '50%',
                 left : '50%',
@@ -288,42 +292,60 @@
                 zIndex : '999999'
             })
 
-            $tips.find('i').css({
-                display : "inline-block",
-                width : "17px",
-                height : "17px",
-                verticalAlign : "middle",
-                marginRight : "10px",
-                backgroundImage : "url(" + me.config.imageUrl + ")",
-                backgroundSize : "100%"
-            })
+            me.$el
+                .find('i')
+                .css({
+                    display : "inline-block",
+                    width : "17px",
+                    height : "17px",
+                    verticalAlign : "middle",
+                    marginRight : "10px",
+                    backgroundImage : "url(" + me.config.imageUrl + ")",
+                    backgroundSize : "100%"
+                })
 
-            $tips.find('span').css({
-                verticalAlign : "middle"
-            })
+            me.$el
+                .find('span')
+                .css({
+                    verticalAlign : "middle"
+                })
 
-            var $success = $(".miya-tips-success");
-            $success.css({
-                border : "1px solid #00ba45",
-                backgroundColor : "#c9ffda",
-                color : "#00802f"
-            })
+            switch (me.config.type) {
+                case 'success' :
+                    me.$el
+                        .css({
+                            border : "1px solid #00ba45",
+                            backgroundColor : "#c9ffda",
+                            color : "#00802f"
+                        })
+                    break;
+                case 'error' :
+                    me.$el
+                        .css({
+                            border : "1px solid #f6b9b9",
+                            backgroundColor : "#ffe4e4",
+                            color : "#b94a48"
+                        })
+                    break;
+                default : break;
+            }
 
-            var $error = $(".miya-tips-error");
-            $error.css({
-                border : "1px solid #f6b9b9",
-                backgroundColor : "#ffe4e4",
-                color : "#b94a48"
-            })
+            $("body").append(me.$el);
         },
         /**
          * @method 删除html
          */
         removeHtml : function () {
             var me = this;
-            var obj = $('.miya-tips');
-            var _height = parseInt(obj.height());
-            obj.animate({marginTop : -_height/2 - 30},function(){setTimeout(function(){obj.remove()},me.config.timeout)});
+            var _height = parseInt(me.$el.height());
+            me.$el.animate(
+                { marginTop : -_height/2 - 30 },
+                function(){
+                    setTimeout(function(){
+                        me.$el.remove();
+                    },
+                    me.config.timeout)
+                });
         }
     }
 

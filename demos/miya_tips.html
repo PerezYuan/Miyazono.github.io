@@ -6,22 +6,29 @@
     <meta name="renderer" content="webkit">
     <meta name="keywords" content="">
     <meta name="description" content="">
-    <meta name="360-site-verification" content="77e88fa96898c4e0de55c512d98cf44d">
     <title>确认弹出窗提示demo</title>
 
     <script src="../assets/jquery171.js"></script>
     <script src="../assets/miyazono.js"></script>
 </head>
 <body>
-	<button id="confirm">确认弹出</button>
+	<button id="success">成功窗口</button>
+    <button id="error">失败窗口</button>
 </body>
 <script type="text/javascript">
-	$("#confirm").click(function() {
-			$.Tips({
-				text : "我是很多字",
-				type : "success",
-				imageUrl : "../assets/success.png"
-			})
-		})	
+    $("#success").click(function() {
+        $.Tips({
+            text : "我是很多字",
+            type : "success",
+            imageUrl : "../assets/success.png"
+        })
+    })
+    $("#error").click(function() {
+        $.Tips({
+            text : "我是很多字",
+            type : "error",
+            imageUrl : "../assets/error.png"
+        })
+    })
 </script>
 </html>
