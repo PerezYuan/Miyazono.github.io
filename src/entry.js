@@ -1,0 +1,1 @@
+var miya = require('./miyazono');
