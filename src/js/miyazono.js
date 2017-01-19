@@ -4,11 +4,10 @@
  * @time 2015-11-23
  */
 
-define('miyazono', ['tips'], function(TipsDialog) {
-    'use strict';
+define('miyazono',['tipsDialog'], function(_tipsDialog_) {
     $.extend({
         Tips : function (options) {
-            let tipsDialog = new TipsDialog(options);
+            let tipsDialog = new _tipsDialog_(options);
         }
     });
 });
