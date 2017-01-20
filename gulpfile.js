@@ -6,7 +6,7 @@ const gulp = require('gulp'),
     print = require('gulp-print'),
     del = require('del');
 
-gulp.task('js', () => {
+gulp.task('default', () => {
     del('dist').then(paths => {
         console.log('Deleted files and folders:\n', paths.join('\n'));
         return gulp.src('src/js/*.js')
