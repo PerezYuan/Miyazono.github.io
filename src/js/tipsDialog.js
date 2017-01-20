@@ -3,8 +3,8 @@
  * @time 2016/12/19.
  * @desc tip组件.
  */
-define('tipsDialog', function(require, exports, module) {
-    var tipsDialog = function (option){
+define('TipsDialog', function(require, exports, module) {
+    var TipsDialog = function (option){
         this.config = {
             type : "success",    //成功：success;错误：error;
             text : "请输入相关提示信息",  //提示文字
@@ -15,7 +15,7 @@ define('tipsDialog', function(require, exports, module) {
     }
 
     //tips类相关函数
-    tipsDialog.prototype = {
+    TipsDialog.prototype = {
         init : function (option) {
             var me = this;
             me.config = $.extend(this.config,option || {});
@@ -134,5 +134,5 @@ define('tipsDialog', function(require, exports, module) {
         }
     }
     
-    return tipsDialog;
+    module.exports = TipsDialog;
 });

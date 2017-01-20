@@ -3,6 +3,7 @@ const gulp = require('gulp'),
     amdclean = require('gulp-amdclean'),
     order = require('gulp-order'),
     concat = require('gulp-concat'),
+    print = require('gulp-print'),
     del = require('del');
 
 gulp.task('js', () => {
@@ -10,16 +11,17 @@ gulp.task('js', () => {
         console.log('Deleted files and folders:\n', paths.join('\n'));
         return gulp.src('src/js/*.js')
             .pipe(order([
-                'src/js/*.js',
+                '!src/js/miyazono.js',
                 'src/js/miyazono.js'
-            ], { base: './' }))
-            // .pipe(babel())
+            ], {base: '.'}))
+            .pipe(print())
+            .pipe(babel())
             .pipe(concat("miyazono.js"))
-            // .pipe(
-            //     amdclean.gulp({
-            //         'prefixMode': 'standard'
-            //     })
-            // )
+            .pipe(
+                amdclean.gulp({
+                    'prefixMode': 'standard'
+                })
+            )
             .pipe(gulp.dest("dist"));
     });
 })
