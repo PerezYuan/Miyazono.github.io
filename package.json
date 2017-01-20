@@ -4,7 +4,9 @@
   "description": "miyazono component base on jQuery",
   "main": "entry.js",
   "scripts": {
-    "build": "gulp"
+    "build": "gulp",
+    "dev": "gulp dev",
+    "prod": "gulp prod"
   },
   "repository": {
     "type": "git",
@@ -30,6 +32,7 @@
     "gulp-concat": "^2.6.1",
     "gulp-order": "^1.1.1",
     "gulp-print": "^2.0.1",
+    "gulp-uglify": "^2.0.0",
     "requirejs": "^2.3.2"
   }
 }

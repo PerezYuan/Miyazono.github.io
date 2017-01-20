@@ -4,28 +4,28 @@
  * @desc tip组件.
  */
 define('TipsDialog', function(require, exports, module) {
-    var TipsDialog = function (option){
+    let TipsDialog = function(option) {
         this.config = {
-            type : "success",    //成功：success;错误：error;
-            text : "请输入相关提示信息",  //提示文字
-            timeout : 1500,  //时间延时
-            imageUrl : ""   //图片icon地址
+            type: "success", // 成功：success;错误：error;
+            text: "请输入相关提示信息", // 提示文字
+            timeout: 1500, // 时间延时
+            imageUrl: "" // 图片icon地址
         }
         this.init(option);
     }
 
     //tips类相关函数
     TipsDialog.prototype = {
-        init : function (option) {
-            var me = this;
+        init(option) {
+            let me = this;
             me.config = $.extend(this.config,option || {});
             me.generateHtml();
         },
 
-        resizePos : function () {
-            var me = this;
-            var _width = parseInt(me.$el.width());
-            var _height = parseInt(me.$el.height());
+        resizePos() {
+            let me = this;
+            let _width = parseInt(me.$el.width());
+            let _height = parseInt(me.$el.height());
             me.$el.css("marginLeft", -_width/2);
             me.$el.css("marginTop", -_height/2 + 30);
         },
@@ -33,9 +33,9 @@ define('TipsDialog', function(require, exports, module) {
         /**
          * @method 生成html
          */
-        generateHtml : function (){
-            var me = this;
-            var _html = '';
+        generateHtml() {
+            let me = this;
+            let _html = '';
 
             switch (me.config.type) {
                 case 'success' :
@@ -51,7 +51,7 @@ define('TipsDialog', function(require, exports, module) {
                     return false;
                     break;
             }
-            var $el = me.$el = $(_html);
+            let $el = me.$el = $(_html);
             if($('#miyaTips').length > 0) {
                 return;
             }
@@ -63,8 +63,8 @@ define('TipsDialog', function(require, exports, module) {
         /**
          * @method 生成css样式
          */
-        generateCss : function () {
-            var me = this;
+        generateCss() {
+            let me = this;
             //弹出确认窗外部盒子样式
             me.$el.css({
                 position : 'fixed',
@@ -120,9 +120,9 @@ define('TipsDialog', function(require, exports, module) {
         /**
          * @method 删除html
          */
-        removeHtml : function () {
-            var me = this;
-            var _height = parseInt(me.$el.height());
+        removeHtml() {
+            let me = this;
+            let _height = parseInt(me.$el.height());
             me.$el.animate(
                 { marginTop : -_height/2 - 30 },
                 function(){

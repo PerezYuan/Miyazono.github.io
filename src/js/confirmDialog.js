@@ -4,23 +4,23 @@
  * @desc Confirm组件.
  */
 define('ConfirmDialog', function(require, exports, module) {
-    var ConfirmDialog = function (options) {
+    let ConfirmDialog = function (options) {
         this.config = {
-            title : "提示", //标题文字
-            titleBgColor : "#258e3d", //标题颜色
-            titleColor : "#fff", //标题文字颜色
-            boxBgColor : "#fff", //盒子背景颜色
-            text : "我是确认弹出窗",  //主题文字
-            textColor : "#000",  //主题文字颜色
-            borderStyle : "1px solid #009934", //主题边框样式
-            btnOkBgColor : "#258e3d",  //确定按钮背景色
-            btnOkColor : "#fff",  //确定按钮文字颜色
-            btnOkText : "确认",  //确定按钮文字
-            btnCancelBgColor : "#828282", //取消按钮背景色
-            btnCancelColor : "#fff", //取消按钮文字颜色
-            btnCancelText : "取消", //取消按钮文字
-            isFade : true,  //是否淡入淡出效果
-            callback : new function() {}
+            title : "提示", // 标题文字
+            titleBgColor : "#258e3d", // 标题颜色
+            titleColor : "#fff", // 标题文字颜色
+            boxBgColor : "#fff", // 盒子背景颜色
+            text : "我是确认弹出窗", // 主题文字
+            textColor : "#000", // 主题文字颜色
+            borderStyle : "1px solid #009934", // 主题边框样式
+            btnOkBgColor : "#258e3d", // 确定按钮背景色
+            btnOkColor : "#fff", // 确定按钮文字颜色
+            btnOkText : "确认", // 确定按钮文字
+            btnCancelBgColor : "#828282", // 取消按钮背景色
+            btnCancelColor : "#fff", // 取消按钮文字颜色
+            btnCancelText : "取消", // 取消按钮文字
+            isFade : true, // 是否淡入淡出效果
+            callback : new function() {} // 确认成功回调
         }
         this.init(options);
     }
@@ -30,19 +30,27 @@ define('ConfirmDialog', function(require, exports, module) {
         /**
         * @method 初始化提示框
         */
-        init : function (options) {
-            var me = this;
+        init(options) {
+            let me = this;
             me.config = $.extend(me.config,options || {});
             me.generateHtml();
             me.bind(me.config.callback);
         },
 
+        resizePos() {
+            let $box = this.$el.find('#miya-box');
+            let _width = parseInt($box.width());
+            let _height = parseInt($box.height());
+            $box.css("marginLeft", -_width/2);
+            $box.css("marginTop", -_height/2);
+            return $box;
+        },
         /**
          * @method 生成html
          */
-        generateHtml : function () {
-            var me = this;
-            var _html = "";
+        generateHtml() {
+            let me = this;
+            let _html = "";
 
             _html += '<div id="miya-wrap"><div id="miya-box"><p id="miya-tit">' + me.config.title + '</p>';
             _html += '<a id="miya-close">×</a><div id="miya-text">' + me.config.text + '</div><div id="miya-btns">';
@@ -52,15 +60,15 @@ define('ConfirmDialog', function(require, exports, module) {
             _html += '</div></div></div>';
 
             // 全局元素
-            var $el = me.$el = $(_html);
+            let $el = me.$el = $(_html);
             me.generateCss();
         },
 
         /**
          * @method 生成css样式
          */
-        generateCss : function () {
-            var me = this;
+        generateCss() {
+            let me = this;
             //弹出确认窗背景样式
             me.$el
                 .css({
@@ -75,16 +83,17 @@ define('ConfirmDialog', function(require, exports, module) {
 
 
             //弹出确认窗外部盒子样式
-            var $box = me.$el.find('#miya-box');
-            $box.css({
-                position : 'fixed',
-                width : '400px',
-                top : '50%',
-                left : '50%',
-                backgroundColor : me.config.boxBgColor,
-                border : me.config.borderStyle,
-                display : 'none',
-            })
+            me.$el
+                .find('#miya-box')
+                .css({
+                    position : 'fixed',
+                    width : '400px',
+                    top : '50%',
+                    left : '50%',
+                    backgroundColor : me.config.boxBgColor,
+                    border : me.config.borderStyle,
+                    display : 'none',
+                })
 
             //弹出确认框标题样式
             me.$el
@@ -169,12 +178,10 @@ define('ConfirmDialog', function(require, exports, module) {
 
             //文本框居中，必须在每一个css设置之后获取长宽
             $('body').append(me.$el);
-            var _width = parseInt($box.width());
-            var _height = parseInt($box.height());
-            $box.css("marginLeft", -_width/2);
-            $box.css("marginTop", -_height/2);
             //文本框淡入
-            me.config.isFade ? $box.fadeIn(500) : $box.show();
+            me.config.isFade ? 
+                me.resizePos().fadeIn(500) : 
+                me.resizePos().show();
         },
 
         /**
@@ -182,8 +189,8 @@ define('ConfirmDialog', function(require, exports, module) {
         * @pram 
         *	callback 回调函数
         */
-        btnOkClick : function (callback, isFade) {
-            var me = this;
+        btnOkClick(callback, isFade) {
+            let me = this;
             if (Object.prototype.toString.call(callback) == '[object Function]') {
                 callback();
             }
@@ -195,8 +202,8 @@ define('ConfirmDialog', function(require, exports, module) {
         /**
         * @method 取消按钮事件
         */
-        btnCancelClick : function (isFade) {
-            var me = this;
+        btnCancelClick(isFade) {
+            let me = this;
             isFade ? 
                 me.$el.fadeOut(500,function(){me.$el.remove();}) 
                 : me.$el.remove();
@@ -206,8 +213,8 @@ define('ConfirmDialog', function(require, exports, module) {
         * @method 通用绑定事件
         * @pram callback 回调函数
         */
-        bind : function (callback) {
-            var me = this;
+        bind(callback) {
+            let me = this;
             me.$el.find("#miya-close").on('click', function () {
                 me.btnCancelClick(me.config.isFade);
             });
