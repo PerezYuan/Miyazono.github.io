@@ -18,7 +18,7 @@
 $.Tips({
 	text : "我是很多字",
 	type : "error",
-	imageUrl : "../assets/error.png"
+	imageUrl : "../src/img/error.png"
 })
 ```
 ### 提示窗参数详解以及缺省值
