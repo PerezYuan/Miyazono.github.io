@@ -1,8 +1,8 @@
 {
   "name": "miyazono",
-  "version": "0.0.1",
+  "version": "0.5.0",
   "description": "miyazono component base on jQuery",
-  "main": "entry.js",
+  "main": "miyazono.min.js",
   "scripts": {
     "build": "gulp",
     "dev": "gulp dev",
